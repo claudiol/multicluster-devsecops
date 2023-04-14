@@ -24,6 +24,7 @@ global:
     username: claudiol
     email: claudiol@redhat.com
     dev_revision: main
+    taskImage: image-registry.openshift-image-registry.svc:5000/openshift/tools
 
     # TODO: Move back to the hub chart, store in a configmap, have an ACM policy distribute to spoke clusters, have spoke look up from configmap
     org:
@@ -31,6 +32,17 @@ global:
       email: devel@myorg.com
     repo: example
   opp: false
+
+  app:
+    gatling:
+      image: quay.io/hybridcloudpatterns/gatling:latest
+      repo: https://github.com/hybrid-cloud-demos/spring-petclinic-gatling
+    zapImage: quay.io/hybridcloudpatterns/zap2docker-stable
+    crdaImage: quay.io/hybridcloudpatterns/crda-image:0.1
+    petclinic:
+      repo: https://github.com/hybrid-cloud-demos/spring-petclinic
+      configRepo: https://github.com/hybrid-cloud-demos/spring-petclinic-config
+      image: quay.io/hybridcloudpatterns/spring-petclinic:latest
 
 main:
   clusterGroupName: hub
