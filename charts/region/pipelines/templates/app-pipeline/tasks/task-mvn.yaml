@@ -118,8 +118,8 @@ spec:
         fi
     - args:
       #- -Dmaven.repo.local=$(workspaces.source.path)/.m2
-        - '-s'
-        - $(workspaces.maven-settings.path)/settings.xml
+      #  - '-s'
+      #  - $(workspaces.maven-settings.path)/settings.xml
         - $(params.GOALS)
       command:
         - /usr/bin/mvn
