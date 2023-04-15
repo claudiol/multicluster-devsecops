@@ -109,7 +109,7 @@ spec:
       - sonar:sonar
       - -f
       - spring-petclinic
-      - -Dsonar.host.url=http://sonarqube:9000
+      - -Dsonar.host.url=http://sonarqube.devsecops-ci.svc.cluster.local:9000
       - -Dsonar.userHome=/tmp/sonar
       - -DskipTests=true
     runAfter:
