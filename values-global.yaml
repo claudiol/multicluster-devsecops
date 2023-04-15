@@ -35,14 +35,14 @@ global:
 
   app:
     gatling:
-      image: quay.io/hybridcloudpatterns/gatling:latest
-      repo: https://github.com/hybrid-cloud-demos/spring-petclinic-gatling
+      image: quay.io/claudiol/gatling:latest
+      repo: https://github.com/claudiol/spring-petclinic-gatling
     zapImage: quay.io/hybridcloudpatterns/zap2docker-stable
     crdaImage: quay.io/hybridcloudpatterns/crda-image:0.1
     petclinic:
-      repo: https://github.com/hybrid-cloud-demos/spring-petclinic
-      configRepo: https://github.com/hybrid-cloud-demos/spring-petclinic-config
-      image: quay.io/hybridcloudpatterns/spring-petclinic:latest
+      repo: https://github.com/claudiol/spring-petclinic
+      configRepo: https://github.com/claudiol/spring-petclinic-config
+      image: quay.io/claudiol/spring-petclinic:latest
 
 main:
   clusterGroupName: hub
