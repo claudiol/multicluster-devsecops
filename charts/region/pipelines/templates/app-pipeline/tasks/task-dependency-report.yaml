@@ -139,5 +139,6 @@ spec:
         #!/usr/bin/env bash
 
         for f in $(find $(params.SOURCE_DIR)/target/site -type f); do
-          curl -u $(params.REPORTS_REPO_USERNAME):$(params.REPORTS_REPO_PASSWORD) -F path=$PIPELINERUN_NAME/${f} -X POST -F file=@${f} $(params.REPORTS_REPO_HOST)/upload; echo ""
+          echo 'curl -u $(params.REPORTS_REPO_USERNAME):$(params.REPORTS_REPO_PASSWORD) -F path=$PIPELINERUN_NAME/${f} -X POST -F file=@${f} $(params.REPORTS_REPO_HOST)/upload; echo ""'
+          # curl -u $(params.REPORTS_REPO_USERNAME):$(params.REPORTS_REPO_PASSWORD) -F path=$PIPELINERUN_NAME/${f} -X POST -F file=@${f} $(params.REPORTS_REPO_HOST)/upload; echo ""
         done
