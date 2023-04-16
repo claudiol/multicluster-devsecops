@@ -84,6 +84,23 @@ spec:
     workspaces:
     - name: output
       workspace: workspace
+  - name: pre-unit-tests
+    params:
+    - name: GOALS
+      value:
+      - clean
+      - -f
+      - spring-petclinic/pom.xml
+    runBefore:
+    - crda-scan
+    taskRef:
+      kind: Task
+      name: maven
+    workspaces:
+    - name: source
+      workspace: workspace
+    - name: maven-settings
+      workspace: maven-settings
   - name: unit-tests
     params:
     - name: GOALS
@@ -93,6 +110,7 @@ spec:
       - spring-petclinic
     runAfter:
     - crda-scan
+    - pre-unit-tests
     taskRef:
       kind: Task
       name: maven
