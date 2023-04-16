@@ -91,7 +91,7 @@ spec:
       - clean
       - -f
       - spring-petclinic/pom.xml
-    runBefore:
+    runAfter:
     - crda-scan
     taskRef:
       kind: Task
