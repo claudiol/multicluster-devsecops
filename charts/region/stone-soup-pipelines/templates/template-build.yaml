@@ -107,7 +107,7 @@ spec:
       runAfter:
         - prefetch-dependencies
       taskRef:
-        name: $REPLACE_ME
+        name: s2i-java  
       workspaces:
         - name: source
           workspace: workspace
