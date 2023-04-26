@@ -16,6 +16,10 @@
 *.tmp
 *.orig
 *~
+*.md
+.shellspec
+*.sh
+OWNERS
 # Various IDEs
 .project
 .idea/

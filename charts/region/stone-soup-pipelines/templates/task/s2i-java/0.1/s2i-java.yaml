@@ -200,8 +200,8 @@ spec:
       # Expose base image digests
       buildah images --format '{{ .Name }}:{{ .Tag }}@{{ .Digest }}' | grep -v $IMAGE > $(results.BASE_IMAGES_DIGESTS.path)
 
-      base_image_name=$(buildah inspect --format '{{ index .ImageAnnotations "org.opencontainers.image.base.name"}}' $IMAGE)
-      base_image_digest=$(buildah inspect --format '{{ index .ImageAnnotations "org.opencontainers.image.base.digest"}}' $IMAGE)
+      base_image_name=$(buildah inspect --format '{{ "{{" }} index .ImageAnnotations "org.opencontainers.image.base.name" {{ "}}" }}' $IMAGE)
+      base_image_digest=$(buildah inspect --format '{{ "{{" }} index .ImageAnnotations "org.opencontainers.image.base.digest" {{ "}}" }}' $IMAGE)
       container=$(buildah from --pull-never $IMAGE)
       buildah copy $container sbom-cyclonedx.json sbom-purl.json /root/buildinfo/content_manifests/
       buildah config -a org.opencontainers.image.base.name=${base_image_name} -a org.opencontainers.image.base.digest=${base_image_digest} $container
