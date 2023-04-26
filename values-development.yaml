@@ -10,6 +10,7 @@ clusterGroup:
     - devsecops-ci
     - devsecops-dev
     - devsecops-qa
+    - stonesoup-ci
 
   subscriptions:
     rhacs-operator:
@@ -64,6 +65,17 @@ clusterGroup:
         value: devsecops-ci
       - name: devel.roxCTLImage
         value: registry.access.redhat.com/advanced-cluster-security/rhacs-roxctl-rhel8:3.71.0-5
+
+    stonesoup:
+      name: stone-soup-pipelines
+      namespace: stonesoup-ci
+      project: ci
+      path: charts/region/stone-soup-pipelines
+      ignoreDifferences:
+      - kind: ServiceAccount
+        jsonPointers:
+        - /imagePullSecrets
+        - /secrets
 
     quay-integration:
       name: quay-integration
