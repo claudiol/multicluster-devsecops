@@ -11,6 +11,7 @@ clusterGroup:
     - devsecops-dev
     - devsecops-qa
     - stonesoup-ci
+    - golang-external-secrets
 
   subscriptions:
     rhacs-operator:
@@ -124,6 +125,12 @@ clusterGroup:
       namespace: devsecops-ci
       project: ci
       path: charts/region/roxctl
+
+    golang-external-secrets:
+      name: golang-external-secrets
+      namespace: golang-external-secrets
+      project: eso
+      path: common/golang-external-secrets
 
 #Adding jchraibi #advanced-devsecops to pattern framework
 #    staging-spring-petclinic:
