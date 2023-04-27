@@ -33,6 +33,7 @@ clusterGroup:
 #Adding jchraibi #advanced-devsecops to pattern framework
     - spring-petclinic
     - rollouts
+    - eso
 
   applications:
     acs-secured:
