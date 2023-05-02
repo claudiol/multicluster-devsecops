@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: stonesoup
+  namespace: stonesoup-ci
   labels:
     "pipelines.openshift.io/used-by": ""
     "pipelines.openshift.io/runtime": ""
