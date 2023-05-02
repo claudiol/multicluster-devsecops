@@ -12,7 +12,7 @@ metadata:
     appstudio.openshift.io/component: spring-petclinic-xgbw
     pipelines.appstudio.openshift.io/type: build
   name: spring-petclinic-on-push
-  namespace: rhn-gps-claudiol-tenant
+  namespace: stonesoup-ci
 spec:
   params:
   - name: dockerfile
