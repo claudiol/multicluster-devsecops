@@ -68,7 +68,6 @@ spec:
         - name: pipelinerun-uid
           value: "$(context.pipelineRun.uid)"
       taskRef:
-        bundle: quay.io/redhat-appstudio-tekton-catalog/task-init:0.1@sha256:8c06b307b7f74622503b80ff0b81ffda63129959f52f8ed8f753d8ab98f38411
         name: init
     - name: clone-repository
       when:
@@ -83,7 +82,6 @@ spec:
         - name: revision
           value: "$(params.revision)"
       taskRef:
-        bundle: quay.io/redhat-appstudio-tekton-catalog/task-git-clone:0.1@sha256:458f4853a01c3273bd76076ac1b015d5f901e70fb4b776f788b577adb25bf5f8
         name: git-clone
       workspaces:
         - name: output
@@ -101,7 +99,6 @@ spec:
       runAfter:
         - clone-repository
       taskRef:
-        bundle: quay.io/redhat-appstudio-tekton-catalog/task-prefetch-dependencies:0.1@sha256:609f5c2a0d72dddb193a0fc2aef2390601172d09f093deadfb9827e28e8dea30
         name: prefetch-dependencies
       workspaces:
         - name: source
@@ -114,7 +111,6 @@ spec:
       runAfter:
         - prefetch-dependencies
       taskRef:
-        bundle: quay.io/redhat-appstudio-tekton-catalog/task-buildah:0.1@sha256:f4c4c211a7b8c859fb23d9b01faaf1a995a33b243476a617370e35f6438096e0
         name: buildah
       workspaces:
         - name: source
