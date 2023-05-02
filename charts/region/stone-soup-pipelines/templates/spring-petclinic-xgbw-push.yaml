@@ -29,7 +29,6 @@ spec:
       name: dockerfile
       type: string
       default: 'https://raw.githubusercontent.com/devfile-samples/devfile-sample-java-springboot-basic/main/docker/Dockerfile'
-      default: Dockerfile
     - description: Force rebuild image
       name: rebuild
       type: string
