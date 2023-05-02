@@ -1,5 +1,5 @@
 apiVersion: tekton.dev/v1beta1
-kind: PipelineRun
+kind: Pipeline
 metadata:
   annotations:
     build.appstudio.redhat.com/target_branch: 'stone-soup-updates'
