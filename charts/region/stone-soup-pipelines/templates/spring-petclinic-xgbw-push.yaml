@@ -6,11 +6,11 @@ metadata:
 spec:
   params:
   - name: dockerfile
-    value: https://raw.githubusercontent.com/devfile-samples/devfile-sample-java-springboot-basic/main/docker/Dockerfile
+    value: 'https://raw.githubusercontent.com/devfile-samples/devfile-sample-java-springboot-basic/main/docker/Dockerfile'
   - name: git-url
     value: 'https://github.com/claudiol/spring-petclinic'
   - name: output-image
-    value: quay.io/claudiol/stone-soup/spring-petclinic-xgbw:latest
+    value: 'quay.io/claudiol/stone-soup/spring-petclinic-xgbw:latest'
   - name: path-context
     value: .
   - name: revision
