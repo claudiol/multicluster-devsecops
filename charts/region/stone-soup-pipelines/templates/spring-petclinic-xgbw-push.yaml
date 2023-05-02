@@ -2,8 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   annotations:
-    build.appstudio.redhat.com/commit_sha: '{{revision}}'
-    build.appstudio.redhat.com/target_branch: '{{target_branch}}'
+    build.appstudio.redhat.com/target_branch: 'stone-soup-updates'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-event: '[push]'
     pipelinesascode.tekton.dev/on-target-branch: '[stone-soup-updates]'
@@ -12,20 +11,20 @@ metadata:
     appstudio.openshift.io/application: petclinic-second-claudiol
     appstudio.openshift.io/component: spring-petclinic-xgbw
     pipelines.appstudio.openshift.io/type: build
-  name: spring-petclinic-xgbw-on-push
+  name: spring-petclinic-on-push
   namespace: rhn-gps-claudiol-tenant
 spec:
   params:
   - name: dockerfile
     value: https://raw.githubusercontent.com/devfile-samples/devfile-sample-java-springboot-basic/main/docker/Dockerfile
   - name: git-url
-    value: '{{repo_url}}'
+    value: 'https://github.com/claudiol/spring-petclinic'
   - name: output-image
-    value: quay.io/redhat-user-workloads/rhn-gps-claudiol-tenant/petclinic-second-claudiol/spring-petclinic-xgbw:{{revision}}
+    value: quay.io/claudiol/stone-soup/spring-petclinic-xgbw:latest
   - name: path-context
     value: .
   - name: revision
-    value: '{{revision}}'
+    value: 'latest'
   pipelineSpec:
     finally:
     - name: show-summary
