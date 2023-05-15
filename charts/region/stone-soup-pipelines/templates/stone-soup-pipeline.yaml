@@ -62,5 +62,21 @@ spec:
     workspaces:
       - name: output
         workspace: workspace
+  - name: prefetch-dependencies
+    when:
+    - input: $(params.hermetic)
+      operator: in
+      values: ["true"]
+    params:
+      - name: input
+        value: $(params.prefetch-input)
+    runAfter:
+      - clone-repository
+    taskRef:
+      name: prefetch-dependencies
+    workspaces:
+      - name: source
+        workspace: workspace
+
   workspaces:
   - name: workspace
