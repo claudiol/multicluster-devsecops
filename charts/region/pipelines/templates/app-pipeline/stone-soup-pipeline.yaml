@@ -17,13 +17,19 @@ spec:
     default: quay.io/claudiol/spring-petclinic:latest
     type: string
   - name: path-context
-    description: Git trpoditory path context to use
+    description: Git repository path context to use
     default: .
     type: string
   - name: revision
     description: Revision branch to use 
     default: stone-soup-updates
     type: string
+  - name: rebuild
+    default: false
+    type: boolean
+  - name: skip-checks
+    default: false
+    type: boolean
   tasks:
   - name: init
     params:
