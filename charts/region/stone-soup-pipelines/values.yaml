@@ -1,0 +1,14 @@
+# Default values for stone-soup-pipelines.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+secretStore:
+  name: vault-backend
+  kind: ClusterSecretStore
+
+gitsecret:
+  key: secret/data/hub/git
+
+imageregistrysecret:
+  key: secret/data/hub/imageregistry
