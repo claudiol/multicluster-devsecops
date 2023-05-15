@@ -30,7 +30,7 @@ spec:
   - name: skip-checks
     default: "false"
     type: string
-  workspaces: 
+  workspaces:
   - name: workspace
   - name: git-auth
   tasks:
@@ -65,5 +65,5 @@ spec:
     workspaces:
       - name: output
         workspace: workspace
-      - name: git-secret
+      - name: git-auth
         workspace: git-auth
