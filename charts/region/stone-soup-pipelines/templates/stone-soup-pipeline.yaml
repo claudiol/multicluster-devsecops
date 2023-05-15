@@ -62,8 +62,5 @@ spec:
     workspaces:
       - name: output
         workspace: workspace
-      - name: basic-auth
-        workspace: basic-auth
   workspaces:
   - name: workspace
-  - name: basic-auth
