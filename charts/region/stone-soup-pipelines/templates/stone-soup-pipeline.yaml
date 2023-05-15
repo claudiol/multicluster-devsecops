@@ -65,5 +65,5 @@ spec:
     workspaces:
       - name: output
         workspace: workspace
-      - name: git-secret
+      - name: git-auth
         workspace: git-auth
