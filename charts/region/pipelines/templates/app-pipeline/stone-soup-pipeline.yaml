@@ -25,10 +25,10 @@ spec:
     default: stone-soup-updates
     type: string
   - name: rebuild
-    default: false
+    default: "false"
     type: string
   - name: skip-checks
-    default: false
+    default: "false"
     type: string
   tasks:
   - name: init
