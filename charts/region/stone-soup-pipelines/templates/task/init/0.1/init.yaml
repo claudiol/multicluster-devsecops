@@ -33,11 +33,6 @@ spec:
       description: Name of secret with credentials
   volumes:
     - name: default-push-secret
-      csi:
-        readOnly: true
-        driver: csi.sharedresource.openshift.io
-        volumeAttributes:
-          sharedSecret: $(params.shared-secret)
   steps:
     - name: init
       image: registry.redhat.io/openshift4/ose-tools-rhel8:v4.12@sha256:4d89da145a14501b049397dc723a2b5feba1f2238c9f71659c9512bd27ca4e95
