@@ -26,10 +26,10 @@ spec:
     type: string
   - name: rebuild
     default: false
-    type: boolean
+    type: string
   - name: skip-checks
     default: false
-    type: boolean
+    type: string
   tasks:
   - name: init
     params:
