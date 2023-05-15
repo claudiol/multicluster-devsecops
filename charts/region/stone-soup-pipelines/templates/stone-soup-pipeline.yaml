@@ -33,8 +33,6 @@ spec:
   workspaces: 
   - name: workspace
   - name: git-auth
-    secret:
-      secretName: 'git-secret'
   tasks:
   - name: init
     params:
