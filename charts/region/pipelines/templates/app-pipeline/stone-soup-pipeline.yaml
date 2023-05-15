@@ -5,7 +5,7 @@ metadata:
 spec:
   params:
   - name: dockerfile
-    description: Docker file to use for specific build. Ref: https://github.com/devfile-samples
+    description: Docker file to use for specific build. 
     default: https://raw.githubusercontent.com/devfile-samples/devfile-sample-java-springboot-basic/main/docker/Dockerfile
     type: string
   - name: git-url
