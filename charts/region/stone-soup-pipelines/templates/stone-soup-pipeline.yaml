@@ -30,7 +30,7 @@ spec:
   - name: skip-checks
     default: "false"
     type: string
-  workspaces: workspaces:
+  workspaces: 
   - name: workspace
     volumeClaimTemplate:
       metadata:
