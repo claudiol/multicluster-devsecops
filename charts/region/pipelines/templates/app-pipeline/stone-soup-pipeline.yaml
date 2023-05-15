@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: stone-soup-on-prem-pipeline
+spec:
+  params:
+  - name: dockerfile
+    description: Docker file to use for specific build. Ref: https://github.com/devfile-samples
+    default: https://raw.githubusercontent.com/devfile-samples/devfile-sample-java-springboot-basic/main/docker/Dockerfile
+    type: string
+  - name: git-url
+    description: URL for Git repository of the application
+    default: https://github.com/claudiol/spring-petclinic
+    type: string
+  - name: output-image
+    description: Target registry for the container produced
+    default: quay.io/claudiol/spring-petclinic:{{revision}}
+    type: string
+  - name: path-context
+    description: Git trpoditory path context to use
+    default: .
+    type: string
+  - name: revision
+    description: Revision branch to use 
+    default: stone-soup-updates
+    type: string
+  tasks:
+  - name: init
+    params:
+    - name: image-url
+      value: $(params.output-image)
+    - name: rebuild
+      value: $(params.rebuild)
+    - name: skip-checks
+      value: $(params.skip-checks)
+    - name: pipelinerun-name
+      value: $(context.pipelineRun.name)
+    - name: pipelinerun-uid
+      value: $(context.pipelineRun.uid)
+    taskRef:
+      bundle: quay.io/redhat-appstudio-tekton-catalog/task-init:0.1@sha256:8c06b307b7f74622503b80ff0b81ffda63129959f52f8ed8f753d8ab98f38411
+      name: init
