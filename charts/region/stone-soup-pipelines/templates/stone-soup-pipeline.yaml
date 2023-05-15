@@ -30,9 +30,6 @@ spec:
   - name: skip-checks
     default: "false"
     type: string
-  workspaces:
-  - name: workspace
-  - name: git-auth
   tasks:
   - name: init
     params:
@@ -67,3 +64,6 @@ spec:
         workspace: workspace
       - name: git-auth
         workspace: git-auth
+  workspaces:
+  - name: workspace
+  - name: git-auth
