@@ -30,6 +30,15 @@ spec:
   - name: skip-checks
     default: "false"
     type: string
+  - name: hermetic
+    description: Execute the build with network isolation
+    default: "false"
+    type: string
+  - name: prefetch-input
+    description: Build dependencies to be prefetched by Cachi2
+    default: ""
+    type: string
+
   tasks:
   - name: init
     params:
