@@ -30,6 +30,21 @@ spec:
   - name: skip-checks
     default: "false"
     type: string
+  workspaces: workspaces:
+  - name: workspace
+    volumeClaimTemplate:
+      metadata:
+        creationTimestamp: null
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+      status: {}
+  - name: git-auth
+    secret:
+      secretName: 'git-secret'
   tasks:
   - name: init
     params:
@@ -62,5 +77,5 @@ spec:
     workspaces:
       - name: output
         workspace: workspace
-      - name: git-secret
-        workspace: git-secret
+      - name: git-auth
+        workspace: git-auth
