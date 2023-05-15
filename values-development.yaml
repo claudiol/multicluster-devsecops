@@ -86,6 +86,16 @@ clusterGroup:
         - /imagePullSecrets
         - /secrets
 
+    stone-soup-tasks:
+      name: stone-soup-tasks
+      namespace: devsecops-ci
+      project: ci
+      path: charts/region/stone-soup-pipelines
+      ignoreDifferences:
+      - kind: ServiceAccount
+        jsonPointers:
+        - /imagePullSecrets
+
     quay-integration:
       name: quay-integration
       namespace: openshift-operators
