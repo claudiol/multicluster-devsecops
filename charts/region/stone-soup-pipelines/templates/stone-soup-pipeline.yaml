@@ -45,3 +45,22 @@ spec:
       value: $(context.pipelineRun.uid)
     taskRef:
       name: init
+    - name: clone-repository
+      when:
+      - input: $(tasks.init.results.build)
+        operator: in
+        values: ["true"]
+      runAfter:
+        - init
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: revision
+          value: "$(params.revision)"
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: workspace
+        - name: git-secret
+          workspace: git-auth
