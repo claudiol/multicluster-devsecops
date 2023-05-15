@@ -14,7 +14,7 @@ spec:
     type: string
   - name: output-image
     description: Target registry for the container produced
-    default: quay.io/claudiol/spring-petclinic:{{revision}}
+    default: quay.io/claudiol/spring-petclinic:latest
     type: string
   - name: path-context
     description: Git trpoditory path context to use
