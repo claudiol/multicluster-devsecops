@@ -163,9 +163,9 @@ spec:
           name: dbfolder
   volumes:
     - name: dbfolder
-      emptydir: {}
+      emptyDir: {}
     - name: work
-      emptydir: {}
+      emptyDir: {}
     - name: registry-auth
       secret:
         secretName: $(params.docker-auth)
