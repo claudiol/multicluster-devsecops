@@ -141,8 +141,8 @@ spec:
         value: "$(tasks.build-container.results.IMAGE_DIGEST)"
       - name: DOCKER_AUTH
         value: "$(tasks.init.results.container-registry-secret)"
-      workspaces:
-      - name: source
-        workspace: workspace
+    workspaces:
+    - name: source
+      workspace: workspace
   workspaces:
   - name: workspace
