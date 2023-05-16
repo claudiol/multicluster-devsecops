@@ -57,6 +57,8 @@ spec:
       value: $(params.output-image)
     - name: rebuild
       value: $(params.rebuild)
+    - name: shared-secret
+      value: $(params.shared-secret)
     - name: skip-checks
       value: $(params.skip-checks)
     - name: pipelinerun-name
@@ -129,14 +131,14 @@ spec:
       operator: in
       values: ["false"]
     runAfter:
-      - build-container
+    - build-container
     taskRef:
       name: inspect-image
       params:
       - name: IMAGE_URL
-        value: $(tasks.build-container.results.IMAGE_URL)
+        value: "$(tasks.build-container.results.IMAGE_URL)"
       - name: IMAGE_DIGEST
-        value: $(tasks.build-container.results.IMAGE_DIGEST)
+        value: "$(tasks.build-container.results.IMAGE_DIGEST)"
       - name: DOCKER_AUTH
         value: "$(tasks.init.results.container-registry-secret)"
       workspaces:
