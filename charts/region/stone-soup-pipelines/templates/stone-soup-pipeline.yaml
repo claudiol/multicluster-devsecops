@@ -137,9 +137,6 @@ spec:
     workspaces:
     - name: source
       workspace: workspace
-
-
-
   - name: inspect-image
     params:
     - name: IMAGE_URL
@@ -160,6 +157,62 @@ spec:
     - name: source
       workspace: workspace
 
+    - name: label-check
+      when:
+      - input: $(params.skip-checks)
+        operator: in
+        values: ["false"]
+      runAfter:
+        - inspect-image
+      taskRef:
+        name: label-check
+      workspaces:
+      - name: workspace
+        workspace: workspace
+    - name: optional-label-check
+      when:
+      - input: $(params.skip-checks)
+        operator: in
+        values: ["false"]
+      runAfter:
+        - inspect-image
+      taskRef:
+        name: label-check
+      params:
+      - name: POLICY_NAMESPACE
+        value: optional_checks
+      workspaces:
+      - name: workspace
+        workspace: workspace
+    - name: deprecated-base-image-check
+      when:
+      - input: $(params.skip-checks)
+        operator: in
+        values: ["false"]
+      taskRef:
+        name: deprecated-image-check
+      params:
+      - name: BASE_IMAGES_DIGESTS
+        value: $(tasks.build-container.results.BASE_IMAGES_DIGESTS)
+      workspaces:
+      - name: test-ws
+        workspace: workspace
+    - name: clair-scan
+      when:
+      - input: $(params.skip-checks)
+        operator: in
+        values: ["false"]
+      runAfter:
+        - build-container
+      taskRef:
+        name: clair-scan
+      params:
+      - name: image-digest
+        value: $(tasks.build-container.results.IMAGE_DIGEST)
+      - name: image-url
+        value: $(tasks.build-container.results.IMAGE_URL)
+      - name: docker-auth
+        value: "$(tasks.init.results.container-registry-secret)"
 
   workspaces:
   - name: workspace
