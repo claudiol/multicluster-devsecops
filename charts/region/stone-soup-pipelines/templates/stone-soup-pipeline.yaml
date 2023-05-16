@@ -116,7 +116,7 @@ spec:
     runAfter:
     - prefetch-dependencies
     taskRef:
-        name: buildah
+      name: buildah
     when:
     - input: $(tasks.init.results.build)
       operator: in
@@ -144,6 +144,5 @@ spec:
       workspaces:
       - name: source
         workspace: workspace
-
   workspaces:
   - name: workspace
