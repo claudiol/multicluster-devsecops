@@ -213,6 +213,85 @@ spec:
       value: $(tasks.build-container.results.IMAGE_URL)
     - name: docker-auth
       value: "$(tasks.init.results.container-registry-secret)"
+  - name: sast-snyk-check
+    when:
+    - input: $(params.skip-checks)
+      operator: in
+      values: ["false"]
+    - input: $(params.snyk-secret)
+      operator: notin
+      values: [""]
+    runAfter:
+      - clone-repository
+    taskRef:
+      name: sast-snyk-check
+    params:
+      - name: SNYK_SECRET
+        value: $(params.snyk-secret)
+    workspaces:
+    - name: workspace
+      workspace: workspace
+  - name: clamav-scan
+    when:
+    - input: $(params.skip-checks)
+      operator: in
+      values: ["false"]
+    runAfter:
+      - build-container
+    taskRef:
+      name: clamav-scan
+    params:
+    - name: image-digest
+      value: $(tasks.build-container.results.IMAGE_DIGEST)
+    - name: image-url
+      value: $(tasks.build-container.results.IMAGE_URL)
+    - name: docker-auth
+      value: "$(tasks.init.results.container-registry-secret)"
+  - name: sbom-json-check
+    when:
+    - input: $(params.skip-checks)
+      operator: in
+      values: ["false"]
+    runAfter:
+      - build-container
+    taskRef:
+      name: sbom-json-check
+    params:
+    - name: IMAGE_URL
+      value: $(tasks.build-container.results.IMAGE_URL)
+    - name: IMAGE_DIGEST
+      value: $(tasks.build-container.results.IMAGE_DIGEST)
+
+  finally:
+    - name: show-sbom
+      taskRef:
+        name: show-sbom
+      params:
+      - name: IMAGE_URL
+        value: $(tasks.build-container.results.IMAGE_URL)
+    - name: show-summary
+      taskRef:
+        name: summary
+      params:
+      - name: pipelinerun-name
+        value: "$(context.pipelineRun.name)"
+      - name: git-url
+        value: "$(tasks.clone-repository.results.url)?rev=$(tasks.clone-repository.results.commit)"
+      - name: image-url
+        value: $(params.output-image)
+      - name: build-task-status
+        value: $(tasks.build-container.status)
+  results:
+    - name: IMAGE_URL
+      value: "$(tasks.build-container.results.IMAGE_URL)"
+    - name: IMAGE_DIGEST
+      value: "$(tasks.build-container.results.IMAGE_DIGEST)"
+    - name: CHAINS-GIT_URL
+      value: "$(tasks.clone-repository.results.url)"
+    - name: CHAINS-GIT_COMMIT
+      value: "$(tasks.clone-repository.results.commit)"
 
   workspaces:
   - name: workspace
+  - name: git-auth
+    optional: true
