@@ -49,6 +49,18 @@ spec:
     description: Snyk Token Secret Name
     type: string
     default: ""
+  - name: IMAGE_URL
+    description: IMAGE URL
+    type: string
+    default: quay.io/claudiol/spring-petclinic:latest
+  - name: IMAGE_DIGEST
+    description: IMAGE DIGEST
+    type: string
+    default: ""
+  - name: DOCKER_AUTH
+    description: DOCKER SECRET
+    type: string
+    default: "default-push-secret"
 
   tasks:
   - name: init
