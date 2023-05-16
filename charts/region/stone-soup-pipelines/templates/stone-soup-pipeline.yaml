@@ -30,6 +30,9 @@ spec:
   - name: skip-checks
     default: "false"
     type: string
+  - name: shared-secret
+    default: "default-push-secret"
+    type: string
   - name: hermetic
     description: Execute the build with network isolation
     default: "false"
@@ -38,6 +41,14 @@ spec:
     description: Build dependencies to be prefetched by Cachi2
     default: ""
     type: string
+  - name: java
+    description: Java build
+    type: string
+    default: "true"
+  - name: snyk-secret
+    description: Snyk Token Secret Name
+    type: string
+    default: ""
 
   tasks:
   - name: init
@@ -112,6 +123,25 @@ spec:
     workspaces:
     - name: source
       workspace: workspace
+  - name: inspect-image
+    when:
+    - input: $(params.skip-checks)
+      operator: in
+      values: ["false"]
+    runAfter:
+      - build-container
+    taskRef:
+      name: inspect-image
+      params:
+      - name: IMAGE_URL
+        value: $(tasks.build-container.results.IMAGE_URL)
+      - name: IMAGE_DIGEST
+        value: $(tasks.build-container.results.IMAGE_DIGEST)
+      - name: DOCKER_AUTH
+        value: "$(tasks.init.results.container-registry-secret)"
+      workspaces:
+      - name: source
+        workspace: workspace
 
   workspaces:
   - name: workspace
