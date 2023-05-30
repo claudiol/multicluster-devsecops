@@ -91,6 +91,7 @@ clusterGroup:
   - secured
   - ci
   - test-app
+  - dev
   #Adding jchraibi #advanced-devsecops to pattern framework
   - spring-petclinic
   - rollouts
@@ -229,7 +230,7 @@ clusterGroup:
     petclinic:
       name: spring-petclinic
       namespace: devsecops-dev
-      project: devsecops-dev
+      project: dev
       path: charts/region/spring-petclinic
 
   imperative: {}
