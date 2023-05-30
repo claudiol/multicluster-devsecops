@@ -1,13 +1,20 @@
-apiVersion: route.openshift.io/v1
 kind: Route
+apiVersion: route.openshift.io/v1
 metadata:
+  name: spring-petclinic
+  namespace: devsecops-dev
   labels:
     app: spring-petclinic
-  name: spring-petclinic
+    argocd.argoproj.io/instance: spring-petclinic
 spec:
-  port:
-    targetPort: 8080-tcp
+  host: >-
+    spring-petclinic-devsecops-dev.apps.lc-single-devsecops-b45c-1.blueprints.rhecoeng.com
   to:
     kind: Service
     name: spring-petclinic
     weight: 100
+  port:
+    targetPort: 8443-tcp
+  tls:
+    termination: edge
+  wildcardPolicy: None
