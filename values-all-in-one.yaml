@@ -48,6 +48,7 @@ clusterGroup:
   # From Development
   - argo-rollouts
   - openshift-pipelines
+  - devsecops-dev
   
 #  subscriptions:  OpenShift Operator subscriptions from OLM/OperatorHub
 #  - name: the Operator package name (required)
