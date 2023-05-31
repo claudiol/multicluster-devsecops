@@ -17,5 +17,5 @@ spec:
     targetPort: 8443-tcp
   tls:
     termination: edge
-    insecureEdgeTerminationPolicy: Allow
+    insecureEdgeTerminationPolicy: Redirect
   wildcardPolicy: None
