@@ -14,8 +14,5 @@ spec:
     name: spring-petclinic
     weight: 100
   port:
-    targetPort: 8443-tcp
-  tls:
-    termination: edge
-    insecureEdgeTerminationPolicy: Redirect
+    targetPort: 8080-tcp
   wildcardPolicy: None
