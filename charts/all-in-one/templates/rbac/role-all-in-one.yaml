@@ -9,6 +9,8 @@ rules:
       - ""
     resources:
       - secrets
+      - serviceaccounts
+      - namespaces
     verbs:
       - get
       - create
