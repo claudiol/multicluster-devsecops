@@ -12,23 +12,23 @@ data:
       #
       
       echo -n "Checking if quay-enterpise namespace exists ..."
-      EXISTS=$(oc get ns quay-enterprise -o go-template --template='{{ .metadata.name }}' > /dev/null 2>&1; echo $?)
+      EXISTS=$(oc get ns quay-enterprise > /dev/null 2>&1; echo $?)
       
       while [ $EXISTS -ne 0 ]; do
         sleep 3
         echo -n "."
-        EXISTS=$(oc get ns quay-enterprise -o go-template --template='{{ .metadata.name }}' > /dev/null 2>&1; echo $?)
+        EXISTS=$(oc get ns quay-enterprise > /dev/null 2>&1; echo $?)
       done
       echo "done"
       
       sleep 2
       echo -n "Checking if route for Quay application exists ..."
-      EXISTS=$(oc get route -n quay-enterprise -o go-template --template='{{ (index .items 0).spec.host }}' > /dev/null 2>&1; echo $?)
+      EXISTS=$(oc get route quay-registry-quay -n quay-enterprise  > /dev/null 2>&1; echo $?)
       ####   oc get route -n quay-enterprise quay-registry-quay -o json > /dev/null 2>&1; echo $?
       while [ $EXISTS -ne 0 ]; do
         sleep 3
         echo -n "."
-        EXISTS=$(oc get route -n quay-enterprise -o go-template --template='{{ (index .items 0).spec.host }}' > /dev/null 2>&1; echo $?)
+        EXISTS=$(oc get route quay-registry-quay -n quay-enterprise > /dev/null 2>&1; echo $?)
       done
       echo "done"
       sleep 2
