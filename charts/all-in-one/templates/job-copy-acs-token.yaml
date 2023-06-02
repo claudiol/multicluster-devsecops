@@ -15,8 +15,13 @@ spec:
         - /bin/bash
         - -c
         - |
-          # copy acs-api-token secret into pipeline namespace
-          oc get secret acs-api-token --namespace=stackrox -oyaml | grep -v '\s*namespace:\s' |oc apply --namespace=devsecops-ci -f -
+          EXISTS=$(oc get secret acs-api-token -n devsecops-ci > /dev/null 2>&1;echo $?)
+          if [ $EXISTS -ne 0 ]; then
+            # copy acs-api-token secret into pipeline namespace
+            oc get secret acs-api-token --namespace=stackrox -oyaml | grep -v '\s*namespace:\s' |oc apply --namespace=devsecops-ci -f -
+          else
+            echo "The acs-api-token secret already exists"
+          fi
         name: copy-acs-token
       dnsPolicy: ClusterFirst
       activeDeadlineSeconds: 900
