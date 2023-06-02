@@ -10,7 +10,5 @@ rules:
     resources:
       - "*"
     verbs:
-      - get
-      - create
-      - list
+      - "*"
 
