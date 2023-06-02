@@ -14,6 +14,7 @@ spec:
         command:
         - /bin/bash
         - -c
+        - |
           '/tmp/configure-all-in-one.sh'
         name: configure-all-in-one
         volumeMounts:
