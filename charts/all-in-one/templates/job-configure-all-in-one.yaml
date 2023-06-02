@@ -5,7 +5,7 @@ metadata:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/sync-wave: "6"
   name: configure-all-in-one
-  namespace: devsecops-dev
+  namespace: stackrox
 spec:
   template:
     spec:
