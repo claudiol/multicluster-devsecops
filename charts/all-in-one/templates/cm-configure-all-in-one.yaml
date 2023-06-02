@@ -46,22 +46,22 @@ data:
       oc patch --patch-file /tmp/registry.json image.config.openshift.io/cluster --type=merge
       sleep 2
       
-      echo "Verify you config is updated"
-      oc get image.config.openshift.io/cluster -o yaml
+      #echo "Verify you config is updated"
+      #oc get image.config.openshift.io/cluster -o yaml
       
-      echo "Checking to nodes for change"
+      #echo "Checking to nodes for change"
       
-      NODES=$(oc get nodes | grep -v NAME | awk '{print $1}')
+      #NODES=$(oc get nodes | grep -v NAME | awk '{print $1}')
       
-      for node in $NODES; do
-        echo "Checking [$node] for updates. This could take a while."
-        UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
-        while [ $UPDATED -ne 0 ]; do
-          sleep 2
-          UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
-        done
-        echo "[$node] has been updated"
-      done
+      #for node in $NODES; do
+      #  echo "Checking [$node] for updates. This could take a while."
+      #  UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
+      #  while [ $UPDATED -ne 0 ]; do
+      #    sleep 2
+      #    UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
+      #  done
+      #  echo "[$node] has been updated"
+      #done
       
       # copy quay pull secret into pipeline namespace
       echo -n "Copy quay pull secret into pipeline namespace ... "
