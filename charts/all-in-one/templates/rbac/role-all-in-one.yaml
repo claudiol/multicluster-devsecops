@@ -13,6 +13,8 @@ rules:
       - namespaces
       - routes
       - nodes
+      - images
+      - cluster
     verbs:
       - get
       - create
