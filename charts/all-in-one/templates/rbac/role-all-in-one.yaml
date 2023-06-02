@@ -15,6 +15,7 @@ rules:
       - nodes
       - images
       - cluster
+      - pods
     verbs:
       - get
       - create
