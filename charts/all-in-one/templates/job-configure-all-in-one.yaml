@@ -23,6 +23,7 @@ spec:
             sleep 3
             echo -n "."
             EXISTS=$(oc get ns quay-enterprise' > /dev/null 2>&1; echo $?)
+            echo "Test"
           done
           echo "done"
           
