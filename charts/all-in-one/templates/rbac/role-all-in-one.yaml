@@ -6,16 +6,9 @@ metadata:
   name: all-in-one-role
 rules:
   - apiGroups:
-      - ""
+      - "*"
     resources:
-      - secrets
-      - serviceaccounts
-      - namespaces
-      - routes
-      - nodes
-      - images
-      - cluster
-      - pods
+      - "*"
     verbs:
       - get
       - create
