@@ -16,29 +16,29 @@ spec:
         - -c
         - |
           echo -n "Checking if quay-enterpise namespace exists ..."
-          EXISTS=$(oc get ns quay-enterprise -o go-template --template='{{ .metadata.name }}' > /dev/null 2>&1; echo $?)
+          EXISTS=$(oc get ns quay-enterprise' > /dev/null 2>&1; echo $?)
           
           while [ $EXISTS -ne 0 ]; do
             sleep 3
             echo -n "."
-            EXISTS=$(oc get ns quay-enterprise -o go-template --template='{{ .metadata.name }}' > /dev/null 2>&1; echo $?)
+            EXISTS=$(oc get ns quay-enterprise' > /dev/null 2>&1; echo $?)
           done
           echo "done"
           
           sleep 2
           echo -n "Checking if route for Quay application exists ..."
-          EXISTS=$(oc get route -n quay-enterprise -o go-template --template='{{ (index .items 0).spec.host }}' > /dev/null 2>&1; echo $?)
+          EXISTS=$(oc get route quay-registry-quay -n quay-enterprise' > /dev/null 2>&1; echo $?)
           ####   oc get route -n quay-enterprise quay-registry-quay -o json > /dev/null 2>&1; echo $?
           while [ $EXISTS -ne 0 ]; do
             sleep 3
             echo -n "."
-            EXISTS=$(oc get route -n quay-enterprise -o go-template --template='{{ (index .items 0).spec.host }}' > /dev/null 2>&1; echo $?)
+            EXISTS=$(oc get route quay-registry-quay -n quay-enterprise > /dev/null 2>&1; echo $?)
           done
           echo "done"
           sleep 2
           
           echo -n "Getting route for Quay application ..."
-          REGISTRY=$(oc get route -n quay-enterprise quay-registry-quay -o json | grep quay-registry-hostname | cut -d ':' -f 2 | tr -d '"' | tr -d ' ')
+          REGISTRY=$(oc get route quay-registry-quay -n quay-enterprise quay-registry-quay -o json | grep quay-registry-hostname | cut -d ':' -f 2 | tr -d '"' | tr -d ' ')
           echo "done"
           cat <<EOF > /tmp/registry.json
           spec:
@@ -68,9 +68,15 @@ spec:
           
           # copy quay pull secret into pipeline namespace
           echo -n "Copy quay pull secret into pipeline namespace ... "
-          oc get secret quay-pull-secret --namespace=devsecops-ci -oyaml | grep -v '\s*namespace:\s' | oc apply --namespace=devsecops-dev -f -
-          echo "done"
-
+          EXISTS=$(oc get secrets | grep quay-pull-secret > /dev/null 2>&1; echo $?)
+          if [ $EXISTS -ne 0 ]; then
+            oc get secret quay-pull-secret --namespace=devsecops-ci -oyaml | grep -v '\s*namespace:\s' | grep -v '\s*creationTimestamp:\s' | grep -v '\s*resourceVersion:\s' | grep -v '\s*uid:\s' | oc apply --namespace=devsecops-dev -f -
+            echo "done"
+          else
+            echo " already exists"
+          fi
+          
+          
           echo "Updating default service account"
           cat <<EOF > /tmp/default-sa-update.json
           imagePullSecrets:                                                                                                                                                                  
