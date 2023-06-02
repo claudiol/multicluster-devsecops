@@ -15,9 +15,6 @@ spec:
         - /bin/bash
         - -c
         - |
-          #!/bin/sh
-          #
-          
           echo -n "Checking if quay-enterpise namespace exists ..."
           EXISTS=$(oc get ns quay-enterprise -o go-template --template='{{ .metadata.name }}' > /dev/null 2>&1; echo $?)
           
