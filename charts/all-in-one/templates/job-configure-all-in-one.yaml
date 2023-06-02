@@ -12,7 +12,7 @@ spec:
       containers:
       - image: {{ .Values.job.image }}
         command:
-        - /bin/bash
+        - /bin/sh
         - -c
         - |
           echo -n "Checking if quay-enterpise namespace exists ..."
@@ -62,7 +62,8 @@ spec:
           do
             echo "Checking [$node] for updates. This could take a while."
             UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
-            while [ $UPDATED -ne 0 ]; do
+            while [ $UPDATED -ne 0 ]
+            do
               sleep 2
               UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
             done
