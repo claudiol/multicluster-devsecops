@@ -19,22 +19,23 @@ data:
       echo "done"
       
       sleep 2
-      echo -n "Checking if route for Quay application exists ..."
-      EXISTS=$(oc get route quay-registry-quay -n quay-enterprise  > /dev/null 2>&1; echo $?)
-      ####   oc get route -n quay-enterprise quay-registry-quay -o json > /dev/null 2>&1; echo $?
-      while [ $EXISTS -ne 0 ]; do
-        sleep 3
-        echo -n "."
-        EXISTS=$(oc get route quay-registry-quay -n quay-enterprise > /dev/null 2>&1; echo $?)
-        if [ $EXISTS -ne 0 ]; then
-          oc get route quay-registry-quay -n quay-enterprise
-        fi
-      done
-      echo "done"
-      sleep 2
+      #echo -n "Checking if route for Quay application exists ..."
+      #EXISTS=$(oc get route quay-registry-quay -n quay-enterprise  > /dev/null 2>&1; echo $?)
+      #####   oc get route -n quay-enterprise quay-registry-quay -o json > /dev/null 2>&1; echo $?
+      #while [ $EXISTS -ne 0 ]; do
+      #  sleep 3
+      #  echo -n "."
+      #  EXISTS=$(oc get route quay-registry-quay -n quay-enterprise > /dev/null 2>&1; echo $?)
+      #  if [ $EXISTS -ne 0 ]; then
+      #    oc get route quay-registry-quay -n quay-enterprise
+      #  fi
+      #done
+      #echo "done"
+      #sleep 2
       
       echo -n "Getting route for Quay application ..."
-      REGISTRY=$(oc get route -n quay-enterprise quay-registry-quay -o json | grep quay-registry-hostname | cut -d ':' -f 2 | tr -d '"' | tr -d ' ')
+      #REGISTRY=$(oc get route -n quay-enterprise quay-registry-quay -o json | grep quay-registry-hostname | cut -d ':' -f 2 | tr -d '"' | tr -d ' ')
+      REGISTRY=quay-registry-quay-quay-enterprise.{{ .Values.global.localClusterDomain }}
       echo "done"
       cat <<EOF > /tmp/registry.json
       spec:
