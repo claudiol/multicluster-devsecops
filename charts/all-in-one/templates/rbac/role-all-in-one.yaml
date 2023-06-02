@@ -11,6 +11,8 @@ rules:
       - secrets
       - serviceaccounts
       - namespaces
+      - routes
+      - nodes
     verbs:
       - get
       - create
