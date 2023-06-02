@@ -1,0 +1,90 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "6"
+  name: configure-all-in-one
+  namespace: devsecops-dev
+spec:
+  template:
+    spec:
+      containers:
+      - image: {{ .Values.job.image }}
+        command:
+        - /bin/bash
+        - -c
+        - |
+          #!/bin/sh
+          #
+          
+          echo -n "Checking if quay-enterpise namespace exists ..."
+          EXISTS=$(oc get ns quay-enterprise -o go-template --template='{{ .metadata.name }}' > /dev/null 2>&1; echo $?)
+          
+          while [ $EXISTS -ne 0 ]; do
+            sleep 3
+            echo -n "."
+            EXISTS=$(oc get ns quay-enterprise -o go-template --template='{{ .metadata.name }}' > /dev/null 2>&1; echo $?)
+          done
+          echo "done"
+          
+          sleep 2
+          echo -n "Checking if route for Quay application exists ..."
+          EXISTS=$(oc get route -n quay-enterprise -o go-template --template='{{ (index .items 0).spec.host }}' > /dev/null 2>&1; echo $?)
+          ####   oc get route -n quay-enterprise quay-registry-quay -o json > /dev/null 2>&1; echo $?
+          while [ $EXISTS -ne 0 ]; do
+            sleep 3
+            echo -n "."
+            EXISTS=$(oc get route -n quay-enterprise -o go-template --template='{{ (index .items 0).spec.host }}' > /dev/null 2>&1; echo $?)
+          done
+          echo "done"
+          sleep 2
+          
+          echo -n "Getting route for Quay application ..."
+          REGISTRY=$(oc get route -n quay-enterprise quay-registry-quay -o json | grep quay-registry-hostname | cut -d ':' -f 2 | tr -d '"' | tr -d ' ')
+          echo "done"
+          cat <<EOF > /tmp/registry.json
+          spec:
+            registrySources:
+              insecureRegistries:
+              - $REGISTRY
+          EOF
+          oc patch --patch-file /tmp/registry.json image.config.openshift.io/cluster --type=merge
+          sleep 2
+          
+          echo "Verify you config is updated"
+          oc get image.config.openshift.io/cluster -o yaml
+          
+          echo "Checking to nodes for change"
+          
+          NODES=$(oc get nodes | grep -v NAME | awk '{print $1}')
+          
+          for node in $NODES; do
+            echo "Checking [$node] for updates. This could take a while."
+            UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
+            while [ $UPDATED -ne 0 ]; do
+              sleep 2
+              UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
+            done
+            echo "[$node] has been updated"
+          done
+          
+          # copy quay pull secret into pipeline namespace
+          echo -n "Copy quay pull secret into pipeline namespace ... "
+          oc get secret quay-pull-secret --namespace=devsecops-ci -oyaml | grep -v '\s*namespace:\s' | oc apply --namespace=devsecops-dev -f -
+          echo "done"
+
+          echo "Updating default service account"
+          cat <<EOF > /tmp/default-sa-update.json
+          imagePullSecrets:                                                                                                                                                                  
+          - name: quay-pull-secret
+          EOF
+          oc patch --patch-file /tmp/default-sa-update.json sa/default --type=merge
+          echo "Done updating default service account"
+
+        name: configure-all-in-one-dev
+      dnsPolicy: ClusterFirst
+      activeDeadlineSeconds: 900
+      restartPolicy: Never
+      serviceAccountName: {{ include "all-in-one.serviceAccountName" . }}
+      terminationGracePeriodSeconds: 60
