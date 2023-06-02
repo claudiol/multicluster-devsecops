@@ -19,8 +19,7 @@ spec:
           echo -n "Checking if quay-enterpise namespace exists ..."
           EXISTS=$(oc get ns quay-enterprise' > /dev/null 2>&1; echo $?)
           
-          while [ $EXISTS -ne 0 ] 
-          do
+          while [ $EXISTS -ne 0 ]; do
             sleep 3
             echo -n "."
             EXISTS=$(oc get ns quay-enterprise' > /dev/null 2>&1; echo $?)
@@ -31,8 +30,7 @@ spec:
           echo -n "Checking if route for Quay application exists ..."
           EXISTS=$(oc get route quay-registry-quay -n quay-enterprise' > /dev/null 2>&1; echo $?)
           ####   oc get route -n quay-enterprise quay-registry-quay -o json > /dev/null 2>&1; echo $?
-          while [ $EXISTS -ne 0 ]
-          do
+          while [ $EXISTS -ne 0 ]; do
             sleep 3
             echo -n "."
             EXISTS=$(oc get route quay-registry-quay -n quay-enterprise > /dev/null 2>&1; echo $?)
@@ -59,12 +57,10 @@ spec:
           
           NODES=$(oc get nodes | grep -v NAME | awk '{print $1}')
           
-          for node in $NODES
-          do
+          for node in $NODES; do
             echo "Checking [$node] for updates. This could take a while."
             UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
-            while [ $UPDATED -ne 0 ]
-            do
+            while [ $UPDATED -ne 0 ]; do
               sleep 2
               UPDATED=$(oc debug -q node/$node -- chroot /host cat /etc/containers/registries.conf | grep location > /dev/null 2>&1;echo $?)
             done
