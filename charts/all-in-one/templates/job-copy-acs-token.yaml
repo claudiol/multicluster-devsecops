@@ -15,7 +15,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          '/tmp/copy-acs-token.yaml'
+          '/tmp/copy-acs-token.sh'
         name: copy-acs-token
         volumeMounts:
           - mountPath: /tmp/copy-acs-token.sh
