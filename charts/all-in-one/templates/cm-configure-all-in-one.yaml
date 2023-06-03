@@ -26,9 +26,6 @@ data:
         sleep 3
         echo -n "."
         EXISTS=$(oc get route quay-registry-quay -n quay-enterprise > /dev/null 2>&1; echo $?)
-        if [ $EXISTS -ne 0 ]; then
-          oc get route quay-registry-quay -n quay-enterprise
-        fi
       done
       echo "done"
       sleep 2
