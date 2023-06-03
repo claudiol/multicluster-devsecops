@@ -76,9 +76,9 @@ data:
       
       echo "Updating default service account"
       cat <<EOF > /tmp/default-sa-update.json
-      imagePullSecrets:                                                                                                                                                                  
+      imagePullSecrets:  
       - name: quay-pull-secret
       EOF
-      oc patch --patch-file /tmp/default-sa-update.json sa/default --type=merge
+      oc patch --patch-file /tmp/default-sa-update.json sa/default -n devsecops-dev --type=merge
       echo "Done updating default service account"
 
