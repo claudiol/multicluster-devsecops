@@ -10,7 +10,7 @@ data:
   copy-acs-token.sh: |
        echo "Checking for acs-api-token existence"
        EXISTS=$(oc get secret acs-api-token -n stackrox > /dev/null 2>&1;echo $?)
-       while [ $EXISTS -ne 0 ]; then
+       while [ $EXISTS -ne 0 ]; do
          sleep 2
          # copy acs-api-token secret into pipeline namespace
          EXISTS=$(oc get secret acs-api-token -n stackrox > /dev/null 2>&1;echo $?)
