@@ -7,8 +7,6 @@ metadata:
     app: spring-petclinic
     argocd.argoproj.io/instance: spring-petclinic
 spec:
-  host: >-
-    spring-petclinic-devsecops-dev.apps.lc-single-devsecops-b45c-1.blueprints.rhecoeng.com
   to:
     kind: Service
     name: spring-petclinic
