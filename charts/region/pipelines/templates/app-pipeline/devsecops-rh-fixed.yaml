@@ -108,7 +108,7 @@ spec:
       - install
       - sonar:sonar
       - -f
-      - pom.xml
+      - spring-petclinic
       - -Dsonar.host.url=http://sonarqube:9000
       - -Dsonar.userHome=/tmp/sonar
       - -DskipTests=true
