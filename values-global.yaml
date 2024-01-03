@@ -36,13 +36,13 @@ global:
   app:
     gatling:
       image: quay.io/claudiol/gatling:latest
-      repo: github.com/claudiol/spring-petclinic-gatling
+      repo: https://github.com/claudiol/spring-petclinic-gatling
     zapImage: quay.io/hybridcloudpatterns/zap2docker-stable
     crdaImage: quay.io/hybridcloudpatterns/crda-image:0.1
     petclinic:
-      repo: github.com/claudiol/spring-petclinic
+      repo: https://github.com/claudiol/spring-petclinic
       branch: stone-soup-updates
-      configRepo: github.com/claudiol/spring-petclinic-config
+      configRepo: https://github.com/claudiol/spring-petclinic-config
       image: quay.io/claudiol/spring-petclinic:latest
 
 main:
