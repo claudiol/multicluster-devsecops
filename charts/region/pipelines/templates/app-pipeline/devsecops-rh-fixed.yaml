@@ -84,21 +84,6 @@ spec:
     workspaces:
     - name: output
       workspace: workspace
-  - name: maveninfo
-    params:
-    - name: VERSION
-      value:
-      - -v
-    runAfter:
-    - crda-scan
-    taskRef: 
-      kind: Task
-      name: maven
-    workspaces:
-    - name: source
-      workspace: workspace
-    - name: maven-settings
-      workspace: maven-settings
   - name: unit-tests
     params:
     - name: GOALS
