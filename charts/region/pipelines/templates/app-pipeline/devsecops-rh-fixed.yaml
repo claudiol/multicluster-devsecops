@@ -86,11 +86,11 @@ spec:
       workspace: workspace
   - name: Maven Info
     params:
-      - name: VERSION
-        value:
-        - '--version'
-      runAfter: crda-scan
-      taskRef: 
+    - name: VERSION
+      value:
+      - '--version'
+    runAfter: crda-scan
+    taskRef: 
       kind: Task
       name: maven
     workspaces:
