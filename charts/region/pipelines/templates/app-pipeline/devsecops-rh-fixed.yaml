@@ -84,7 +84,7 @@ spec:
     workspaces:
     - name: output
       workspace: workspace
-  - name: Maven Info
+  - name: MavenInfo
     params:
     - name: VERSION
       value:
