@@ -88,7 +88,7 @@ spec:
     params:
     - name: VERSION
       value:
-      - --version
+      - -v
     runAfter: crda-scan
     taskRef: 
       kind: Task
