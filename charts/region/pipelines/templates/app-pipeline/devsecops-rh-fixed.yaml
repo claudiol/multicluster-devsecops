@@ -91,6 +91,7 @@ spec:
       - package
       - -f
       - spring-petclinic
+    timeout: 3600s
     runAfter:
     - crda-scan
     taskRef:
