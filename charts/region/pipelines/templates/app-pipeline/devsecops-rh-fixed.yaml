@@ -146,7 +146,7 @@ spec:
       - -f
       - spring-petclinic
       - -DskipTests=true
-      - -DaltDeploymentRepository=nexus::default::http://nexus:8081/repository/maven-releases/
+      - -DaltDeploymentRepository=nexus::default::http://nexus:8081/repository/maven-public/
       - -DaltSnapshotDeploymentRepository=nexus::default::http://nexus:8081/repository/maven-snapshots/
     runAfter:
     - code-analysis
