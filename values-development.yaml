@@ -48,6 +48,10 @@ clusterGroup:
       name: quay-bridge-operator
       namespace: openshift-operators
 
+    nexus:
+      name: nxrm-operator-certified
+      namespace: openshift-operators # operator namespace
+
   projects:
     - secured
     - ci
@@ -96,11 +100,11 @@ clusterGroup:
       project: ci
       path: charts/region/acs
 
-    nexus:
-      name: nexus
-      namespace: devsecops-ci
-      project: ci
-      path: charts/region/nexus
+        #nexus:
+        #name: nexus
+        #namespace: devsecops-ci
+        #project: ci
+        #path: charts/region/nexus
 
     reports-repo:
       name: reports-repo
