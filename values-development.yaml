@@ -50,6 +50,7 @@ clusterGroup:
 
     nexus:
       name: nxrm-operator-certified
+      source: certified-operators
       namespace: openshift-operators # operator namespace
 
   projects:
